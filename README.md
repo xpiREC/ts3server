@@ -8,7 +8,7 @@
 ### How to use:
 Download or copy the script and paste it into a new file
 ```bash
-wget https://raw.githubusercontent.com/xpiREC/install_ts3-server/master/install_ts3-server.sh
+wget https://raw.githubusercontent.com/xpiREC/ts3server/master/install_ts3-server.sh
 ```
 Change the user variables if necessary
 ```bash
