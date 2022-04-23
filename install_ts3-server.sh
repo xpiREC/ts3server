@@ -38,12 +38,12 @@ fi
 
 # functions
 function install_ts3-server {
-mkdir -p "$TS3_DIR"
-touch "$TS3_DIR"/.ts3server_license_accepted
-tar -xjf teamspeak3-server_linux*.tar.bz2
-mv teamspeak3-server_linux*/* "$TS3_DIR"
-chown "$TS3_USER":"$TS3_USER" "$TS3_DIR" -R
-rm -rf teamspeak3-server_linux*.tar.bz2 teamspeak3-server_linux*/
+  mkdir -p "$TS3_DIR"
+  touch "$TS3_DIR"/.ts3server_license_accepted
+  tar -xjf teamspeak3-server_linux*.tar.bz2
+  mv teamspeak3-server_linux*/* "$TS3_DIR"
+  chown "$TS3_USER":"$TS3_USER" "$TS3_DIR" -R
+  rm -rf teamspeak3-server_linux*.tar.bz2 teamspeak3-server_linux*/
 }
 
 # add the user to run ts3server
@@ -76,7 +76,7 @@ WorkingDirectory= $TS3_DIR
 User=$TS3_USER
 Group=$TS3_USER
 Type=forking
-ExecStart= $TS3_DIR/ts3server_startscript.sh start inifile= $TS3_DIR/ts3server.ini
+ExecStart= $TS3_DIR/ts3server_startscript.sh start
 ExecStop= $TS3_DIR/ts3server_startscript.sh stop
 ExecReload= $TS3_DIR/ts3server_startscript.sh reload
 PIDFile= $TS3_DIR/ts3server.pid
@@ -84,35 +84,6 @@ PIDFile= $TS3_DIR/ts3server.pid
 [Install]
 WantedBy=multi-user.target
 EOF
-
-# install a default ts3server.ini
-touch "$TS3_DIR"/ts3server.ini
-cat > "$TS3_DIR"/ts3server.ini <<EOF
-#The path of the *.ini file to use.
-inifile=ts3server.ini
-
-# The Voice IP that your Virtual Servers are listing on. [UDP] (Default: 0.0.0.0)
-voice_ip=0.0.0.0
-
-# The Query IP that your Instance is listing on. [TCP] (Default: 0.0.0.0)
-query_ip=0.0.0.0
-
-# The Filetransfer IP that your Instance is listing on. [TCP] (Default: 0.0.0.0)
-filetransfer_ip=
-
-# The Voice Port that your default Virtual Server is listing on. [UDP] (Default: 9987)
-default_voice_port=9987
-
-# The Query Port that your Instance is listing on. [TCP] (Default: 10011)
-query_port=10011
-
-# The Filetransfer Port that your Instance is listing on. [TCP] (Default: 30033)
-filetransfer_port=30033
-
-# Use the same log file
-logappend=1
-EOF
-chown "$TS3_USER":"$TS3_USER" "$TS3_DIR"/ts3server.ini
 
 # start the ts3server to generate the ServerAdmin Privilege Key
 echo "Starting the TeamSpeak 3 server"
